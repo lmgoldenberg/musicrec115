@@ -112,25 +112,26 @@ def popularArtists(name, preferences):
     Author: Keyaan"""
 
     artist_counts = {}
-    for user_prefs in preferences.values():
 
-        if user_prefs and user_prefs[-1] != '$':
-            for artist in user_prefs[:-1]:
+    for user, user_prefs in preferences.items():
+        if user_prefs and '$' not in user_prefs:
+            for artist in user_prefs:
                 artist_counts[artist] = artist_counts.get(artist, 0) + 1
-
     if not artist_counts:
         print("Sorry, no artists found.")
         return
-
     sorted_artists = sorted(artist_counts.items(), key=lambda x: x[1], reverse=True)
+   
     top_artists = sorted_artists[:3]
-
+   
     if top_artists:
         print("The most popular artist(s) is/are:")
+       
         for artist, count in top_artists:
             print(artist)
     else:
         print("Sorry, no artists found.")
+
     menu(name,preferences)
 def mostLikes(name, preferences):
     """Does not take an input. Returns the user with the most
